@@ -156,7 +156,7 @@ export const en = {
   's4.cards.title': 'Where else the birthday bound shows up',
   's4.card.sig.title': 'Digital signatures',
   's4.card.sig':
-    'A signature signs the **hash** of a document. A collision lets an attacker swap one document for another without invalidating the signature. See step 5.',
+    'A signature signs the **hash** of a document. A collision lets an attacker swap one document for another without invalidating the signature. See step 6.',
   's4.card.sweet32.title': 'Sweet32 (2016)',
   's4.card.sweet32':
     '64-bit block ciphers such as 3DES and Blowfish start producing repeated blocks after about 2^{32} blocks (≈ 32 GB) under one key. Researchers used this to recover secret cookies from HTTPS traffic.',
@@ -199,11 +199,11 @@ export const en = {
 
   /* ------------------------------- live mode ------------------------------ */
   'live.title': 'Live classroom',
-  'live.back': '← Back to the app',
+  'live.back': 'Back to the app',
   'live.room': 'Room {room}',
   'live.newRoom': 'New room',
   'live.status.connecting': 'Connecting…',
-  'live.status.live': '● Live',
+  'live.status.live': 'Live',
   'live.status.error': 'Connection lost',
   'live.scan': 'Scan and send your birthday',
   'live.students': 'students so far',
@@ -231,6 +231,131 @@ export const en = {
   'vote.look': 'Now look at the projector.',
   'vote.change': 'Change my answer',
   'vote.error': 'Could not send. Check your internet connection and try again.',
+
+  /* ------------------------------ structure ------------------------------ */
+  'nav.why': 'Why hash',
+  'nav.hash': 'Hash function',
+  'nav.summary': 'Summary',
+  'nav.live': 'Live',
+  'ui.book': 'Book {s}',
+  'app.live': 'Live classroom demo',
+  'app.covers': 'Covers chapter 5 of the book:',
+  'book.5.1': 'Introduction',
+  'book.5.2': 'Crypto hash function',
+  'book.5.3': 'Birthday problem',
+  'book.5.4': 'Birthday attack',
+
+  /* ---------------------------------- 5.1 --------------------------------- */
+  'why.title': 'Why do we need hash functions?',
+  'why.intro':
+    'A digital signature is slow, and it works on a short, fixed-size input. So we never sign the document itself: we sign its **hash**, a short fingerprint of the document. Anyone can recompute the hash and check the signature against it.',
+  'why.doc': 'Contract: Alice pays Bob 100 € by 1 March.',
+  'why.docLabel': 'The document (any length)',
+  'why.bytes': '{n} bytes',
+  'why.digest': 'Its hash (always the same length)',
+  'why.signVerb': 'sign',
+  'why.sign': 'The signature',
+  'why.signNote': 'Alice signs only these 32 bytes.',
+  'why.tryIt': 'Edit the document: the hash changes completely, but it stays 32 bytes long.',
+  'why.callout':
+    'The catch: the signature belongs to the **hash**, not to the text. If two different documents had the same hash, a signature on one would also be valid on the other. Steps 3–6 show how much work it takes to find such a pair.',
+
+  /* ---------------------------------- 5.2 --------------------------------- */
+  'hash.title': 'What is a cryptographic hash function?',
+  'hash.intro':
+    'A hash function h(x) turns an input of any length into a fixed-length output. For a **cryptographic** hash it must also be impossible in practice to run backwards or to find two inputs with the same output. Try it on real SHA-256:',
+  'hash.lab': 'Change one character, compare the hashes',
+  'hash.a': 'Message A',
+  'hash.b': 'Message B',
+  'hash.defaultA': 'Alice pays Bob 100 €',
+  'hash.defaultB': 'Alice pays Bob 900 €',
+  'hash.changed':
+    'bits differ ({pct}). A tiny change in the input flips about half of the output bits. This is the **avalanche effect**: similar inputs give unrelated hashes.',
+  'hash.props.title': 'The five properties (book 5.2)',
+  'hash.p.compress.name': '**Compression**',
+  'hash.p.compress.desc': 'Any input length gives an output of n bits (here n = 256).',
+  'hash.p.efficient.name': '**Efficiency**',
+  'hash.p.efficient.desc': 'Fast to compute: your browser just did about **{rate}** SHA-256 hashes per second.',
+  'hash.p.oneway.name': '**One-way** (preimage resistance)',
+  'hash.p.oneway.desc': 'Given a hash y, it is infeasible to find any x with h(x) = y.',
+  'hash.p.weak.name': '**Weak collision resistance**',
+  'hash.p.weak.desc': 'Given x, it is infeasible to find a different x′ with h(x′) = h(x).',
+  'hash.p.strong.name': '**Strong collision resistance**',
+  'hash.p.strong.desc': 'It is infeasible to find **any** two x ≠ x′ with h(x) = h(x′). Only half the bits of work, because of the birthday problem.',
+  'hash.work': 'Generic attack:',
+  'hash.toParadox': 'Why does strong collision resistance cost only 2^{n/2} and not 2^{n}? That is the birthday problem.',
+  'hash.toParadox.link': 'Step 3 →',
+
+  /* -------------------------------- summary ------------------------------- */
+  'sum.title': 'Summary: the answers in one place',
+  'sum.q.calc': 'What does the app calculate?',
+  'sum.a.calc':
+    'The exact probability 1 − (365/365)(364/365)…, the approximation 1 − e^{−n²/2N}, the work for a collision (≈ 1.18·√N) and for a preimage (≈ 0.69·N), and it runs real attacks on SHA-256 to measure them.',
+  'sum.q.logic': 'Why is it a "paradox"?',
+  'sum.a.logic':
+    'We count people, but matches happen between **pairs**. 23 people form 253 pairs, so a shared birthday is already more likely than not. In general a repeat appears after about √N draws, not N.',
+  'sum.q.hash': 'Why does it matter for hashes?',
+  'sum.a.hash':
+    'Signatures sign the hash, so a collision lets one signature cover two documents. A hash with N = 2^{n} outputs is a "year" with 2^{n} days: a collision needs only about 2^{n/2} hashes.',
+  'sum.q.security': 'How does it affect security?',
+  'sum.a.security':
+    'An n-bit hash gives at most **n/2 bits** of collision resistance. MD5 (64) and SHA-1 (80) are broken; use SHA-256 or larger (128+). The birthday attack (Yuval) turns a collision into a forged signature.',
+  'quiz.title': 'Check yourself',
+  'quiz.1.q': 'About how many hashes does a birthday attack on a 64-bit hash need?',
+  'quiz.1.a': '2^{64}',
+  'quiz.1.b': '2^{32}',
+  'quiz.1.c': '64 × 365',
+  'quiz.1.why': 'A collision needs about √N = √(2^{64}) = 2^{32} hashes.',
+  'quiz.2.q': 'How many bits of collision resistance does SHA-256 give?',
+  'quiz.2.a': '128',
+  'quiz.2.b': '256',
+  'quiz.2.c': '64',
+  'quiz.2.why': 'n/2 = 256/2 = 128 bits.',
+  'quiz.3.q': 'Which is easier for an attacker?',
+  'quiz.3.a': 'Finding a message with a given hash',
+  'quiz.3.b': 'Both take the same work',
+  'quiz.3.c': 'Finding any two messages with the same hash',
+  'quiz.3.why': 'Any pair can match, so the number of pairs grows like n²: 2^{n/2} work instead of 2^{n}.',
+  'quiz.right': 'Correct!',
+  'quiz.wrong': 'Not quite.',
+  'quiz.retry': 'Try again',
+
+  /* --------------------------------- website -------------------------------- */
+  'hero.eyebrow': 'Information Security · Chapter 5',
+  'hero.people': 'people in the room',
+  'hero.caption': 'Random birthdays arriving one by one…',
+  'hero.match': '**Match!** Two people share a birthday after only **{n}** people.',
+  'stats.people': 'people give a **50%** chance of a shared birthday',
+  'stats.pairs': 'pairs hide in a room of 23',
+  'stats.sha256': 'work to find a SHA-256 collision, not 2^{256}',
+  'stats.md5': 'generic work for MD5, which is why it fell',
+  'footer.tagline': 'An interactive guide to the birthday paradox and why it sets the length of every cryptographic hash.',
+  'footer.steps': 'Steps',
+
+  /* ------------------------------ attack visuals ----------------------------- */
+  'duel.title': 'See it: a year with 2^{{k}} days',
+  'duel.desc':
+    'Each square is one possible hash value, like a day of the year: here **{N}** of them (k = {k} bits). Every real SHA-256 hash lands in its square. Same squares, two different questions:',
+  'duel.start': 'Start both attacks',
+  'duel.again': 'Run again',
+  'duel.collision': 'Birthday attack',
+  'duel.collision.q': 'Stop when ANY square is hit twice.',
+  'duel.preimage': 'Preimage attack',
+  'duel.preimage.q': 'Stop only when the red target square {h} is hit.',
+  'duel.found': 'Found',
+  'duel.hashes': 'hashes',
+  'duel.collision.found': '`{a}` and `{b}` both land in square **{h}**.',
+  'duel.preimage.found': '`{b}` finally hits the target **{h}**.',
+  'duel.hint': 'Watch the left grid: a repeat shows up long before the right one hits its single target.',
+  'duel.waiting': '**Collision after {c} hashes.** The preimage attack is still throwing…',
+  'duel.verdict':
+    'Collision after **{c}** hashes, preimage after **{p}**: about **{x}×** more work. With 256 bits instead of {k}, that gap is 2^{128} vs 2^{256}.',
+  'duel.lucky':
+    'Collision after **{c}** hashes, preimage after only **{p}**: the preimage got lucky this time. On average it needs about **{ep}** hashes, the collision only about **{ec}**. Run it again!',
+  's3.real.title': 'Now at full speed',
+  's3.real.desc': 'The same two attacks without animation, in a background worker, for much larger k.',
+  's5.sameHash': 'same hash',
+  's5.stamp.valid': 'Valid signature',
 
   /* -------------------------------- footer -------------------------------- */
   'footer.course': 'Information Security · MSc Computer and Software Engineering (FIEK), University of Prishtina',

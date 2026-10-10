@@ -3,6 +3,7 @@ import QRCode from 'qrcode';
 import { CartesianGrid, Line, LineChart, ReferenceDot, ReferenceLine, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import { T } from '../components/Text';
 import { useTheme } from '../components/theme';
+import { MoonIcon, SunIcon } from '../components/Header';
 import { Tile } from '../components/ui';
 import { sendVote, useLiveVotes } from '../hooks/useLiveVotes';
 import { useI18n } from '../i18n';
@@ -43,22 +44,42 @@ export function LivePage({ room }: { room: string }) {
 
   return (
     <main className="live-page">
-      <div className="live-bar">
-        <a href="#top" className="small">{t('live.back')}</a>
-        <strong>{t('live.title')}</strong>
-        <span className={`live-status ${status}`}>{t(`live.status.${status}`)}</span>
-        <span className="spacer" />
-        <button className="btn ghost" onClick={() => (location.hash = `#live/${newRoomCode()}`)}>
-          {t('live.newRoom')}
-        </button>
-        <div className="segmented" role="group" aria-label={t('ui.language')}>
-          <button aria-pressed={lang === 'sq'} onClick={() => setLang('sq')}>SQ</button>
-          <button aria-pressed={lang === 'en'} onClick={() => setLang('en')}>EN</button>
+      <header className="live-bar">
+        <a href="#top" className="bar-btn back-btn">
+          <ArrowLeft />
+          <span>{t('live.back')}</span>
+        </a>
+        <div className="live-title">
+          <span className="brand-mark" aria-hidden="true">
+            23
+          </span>
+          <strong>{t('live.title')}</strong>
+          <span className="room-chip" title={t('live.room', { room })}>
+            {room}
+          </span>
+          <span className={`live-status ${status}`}>
+            <span className="status-dot" aria-hidden="true" />
+            {t(`live.status.${status}`)}
+          </span>
         </div>
-        <button className="btn ghost" onClick={toggle} aria-label={t('ui.theme')}>
-          {theme === 'dark' ? '☀' : '☾'}
-        </button>
-      </div>
+        <div className="live-actions">
+          <button className="bar-btn" onClick={() => (location.hash = `#live/${newRoomCode()}`)}>
+            <RefreshIcon />
+            <span>{t('live.newRoom')}</span>
+          </button>
+          <div className="segmented" role="group" aria-label={t('ui.language')}>
+            <button aria-pressed={lang === 'sq'} onClick={() => setLang('sq')}>
+              SQ
+            </button>
+            <button aria-pressed={lang === 'en'} onClick={() => setLang('en')}>
+              EN
+            </button>
+          </div>
+          <button className="icon-btn" onClick={toggle} aria-label={t('ui.theme')} title={t('ui.theme')}>
+            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+          </button>
+        </div>
+      </header>
 
       {/* one screen: QR | calendar | theory, so every new birthday visibly changes both */}
       <div className="live-grid">
@@ -246,3 +267,15 @@ function ManualAdd({ room }: { room: string }) {
     </form>
   );
 }
+
+const ArrowLeft = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M19 12H5M11 18l-6-6 6-6" />
+  </svg>
+);
+
+const RefreshIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" />
+  </svg>
+);

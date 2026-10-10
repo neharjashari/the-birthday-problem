@@ -37,14 +37,19 @@ export function S5Yuval() {
     if (result) signAndVerify(result.fairHash, result.fraudHash, result.bits).then(setSig, () => setSig(null));
   }, [result]);
 
-  const fairIndex = result?.fairIndex ?? 0;
-  const fraudIndex = result?.fraudIndex ?? 0;
-  const fairHash = result?.fairHash ?? sha256Hex(renderVariant(fair, 0));
-  const fraudHash = result?.fraudHash ?? sha256Hex(renderVariant(fraud, 0));
   const half = 2 ** Math.ceil(bits / 2);
+  // while the worker runs, show the variant it is hashing right now (the "factory")
+  const fairCount = Math.min(half, 2 ** choiceCount(fair));
+  const liveFair = state.phase === 'fraud' ? fairCount - 1 : Math.max(0, state.attempts - 1);
+  const liveFraud = state.phase === 'fraud' ? Math.max(0, state.attempts - fairCount - 1) : 0;
+  const fairIndex = result?.fairIndex ?? (running ? liveFair : 0);
+  const fraudIndex = result?.fraudIndex ?? (running ? liveFraud : 0);
+  const fairHash = result?.fairHash ?? sha256Hex(renderVariant(fair, fairIndex));
+  const fraudHash = result?.fraudHash ?? sha256Hex(renderVariant(fraud, fraudIndex));
+  const forged = !!(result && sig?.validOnFair && sig.validOnFraud);
 
   return (
-    <Section id="yuval" n={5} title="s5.title">
+    <Section id="yuval" title="s5.title">
       <Prose k="s5.intro" />
       <ol className="steps">
         {(['s5.step1', 's5.step2', 's5.step3', 's5.step4'] as const).map((k) => (
@@ -114,9 +119,16 @@ export function S5Yuval() {
         </div>
       </div>
 
-      <div className="grid-2">
+      <div className={`grid-2 yuval-pair${running ? ' factory' : ''}`}>
+        {result && (
+          <div className="match-bridge" aria-live="polite">
+            <span>{t('s5.sameHash')}</span>
+            <code>{result.fairHash.slice(0, Math.ceil(bits / 4))}</code>
+          </div>
+        )}
         <ContractCard
           title={t('s5.fair')}
+          stamp={forged ? 'signed' : null}
           segments={fair}
           index={fairIndex}
           hash={fairHash}
@@ -126,6 +138,7 @@ export function S5Yuval() {
         />
         <ContractCard
           title={t('s5.fraud')}
+          stamp={forged ? 'forged' : null}
           segments={fraud}
           index={fraudIndex}
           hash={fraudHash}
@@ -170,16 +183,23 @@ function ContractCard(props: {
   bits: number;
   showWs: boolean;
   tone: string;
+  stamp: 'signed' | 'forged' | null;
 }) {
   const { t } = useI18n();
-  const { title, segments, index, hash, bits, showWs, tone } = props;
+  const { title, segments, index, hash, bits, showWs, tone, stamp } = props;
   const parts = useMemo(() => variantParts(segments, index), [segments, index]);
 
   return (
-    <div className="card">
+    <div className="card contract-card">
+      {stamp && (
+        <div className={`stamp ${stamp}`} aria-label={t('s5.stamp.valid')}>
+          <span className="stamp-sig">✍ Alice</span>
+          <span className="stamp-ok">✓ {t('s5.stamp.valid')}</span>
+        </div>
+      )}
       <h3 style={{ marginBottom: 0 }}>{title}</h3>
       <div className="small muted">{t('s5.variant', { i: index })}</div>
-      <div className="contract">
+      <div className="contract" key={index}>
         {parts.map((p, i) =>
           p.choice === undefined ? (
             <span key={i}>{p.text}</span>

@@ -32,7 +32,7 @@ export function S4RealWorld() {
   const [speed, setSpeed] = useState(SPEEDS[1]);
 
   return (
-    <Section id="practice" n={4} title="s4.title">
+    <Section id="practice" title="s4.title">
       <div className="callout">
         <p>
           <T k="s4.rule" />

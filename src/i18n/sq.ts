@@ -152,7 +152,7 @@ export const sq: Messages = {
   's4.cards.title': 'Ku tjetër shfaqet kufiri i ditëlindjes',
   's4.card.sig.title': 'Nënshkrimet digjitale',
   's4.card.sig':
-    'Nënshkrimi digjital përdor vlerën hash të dokumentit për të krijuar nënshkrimin. Një përplasje(collision) i lejon sulmuesit të zëvendësojë një dokument me një tjetër pa e prishur nënshkrimin. Shihni hapin 5.',
+    'Nënshkrimi digjital përdor vlerën hash të dokumentit për të krijuar nënshkrimin. Një përplasje(collision) i lejon sulmuesit të zëvendësojë një dokument me një tjetër pa e prishur nënshkrimin. Shihni hapin 6.',
   's4.card.sweet32.title': 'Sweet32 (2016)',
   's4.card.sweet32':
     'Shifrat me blloqe 64-bitëshe si 3DES dhe Blowfish fillojnë të prodhojnë blloqe të përsëritura pas rreth 2^{32} blloqeve (≈ 32 GB) me të njëjtin çelës. Studiuesit e shfrytëzuan këtë për të nxjerrë cookie sekrete nga trafiku HTTPS.',
@@ -196,11 +196,11 @@ export const sq: Messages = {
 
   /* ------------------------------- live mode ------------------------------ */
   'live.title': 'Klasa live',
-  'live.back': '← Kthehu te aplikacioni',
+  'live.back': 'Kthehu te aplikacioni',
   'live.room': 'Dhoma {room}',
   'live.newRoom': 'Dhomë e re',
   'live.status.connecting': 'Duke u lidhur…',
-  'live.status.live': '● Live',
+  'live.status.live': 'Live',
   'live.status.error': 'Lidhja u ndërpre',
   'live.scan': 'Skanoni dhe dërgoni ditëlindjen tuaj',
   'live.students': 'studentë deri tani',
@@ -228,6 +228,131 @@ export const sq: Messages = {
   'vote.look': 'Tani shikoni projektorin.',
   'vote.change': 'Ndrysho përgjigjen',
   'vote.error': 'Dërgimi dështoi. Kontrolloni internetin dhe provoni përsëri.',
+
+  /* ------------------------------ structure ------------------------------ */
+  'nav.why': 'Pse hash',
+  'nav.hash': 'Funksioni hash',
+  'nav.summary': 'Përmbledhje',
+  'nav.live': 'Live',
+  'ui.book': 'Libri {s}',
+  'app.live': 'Demonstrim live në klasë',
+  'app.covers': 'Mbulon kapitullin 5 të librit:',
+  'book.5.1': 'Hyrje',
+  'book.5.2': 'Funksioni hash kriptografik',
+  'book.5.3': 'Problemi i ditëlindjes',
+  'book.5.4': 'Sulmi i ditëlindjes',
+
+  /* ---------------------------------- 5.1 --------------------------------- */
+  'why.title': 'Pse na duhen funksionet hash?',
+  'why.intro':
+    'Nënshkrimi digjital është i ngadalshëm dhe punon me një hyrje të shkurtër me gjatësi fikse. Prandaj nuk e nënshkruajmë kurrë vetë dokumentin, por **hash-in** e tij, një gjurmë të shkurtër të dokumentit. Kushdo mund ta rillogarisë hash-in dhe ta verifikojë nënshkrimin.',
+  'why.doc': 'Kontratë: Alice i paguan Bob-it 100 € deri më 1 mars.',
+  'why.docLabel': 'Dokumenti (me çfarëdo gjatësie)',
+  'why.bytes': '{n} bajt',
+  'why.digest': 'Hash-i i tij (gjithmonë me të njëjtën gjatësi)',
+  'why.signVerb': 'nënshkruaj',
+  'why.sign': 'Nënshkrimi',
+  'why.signNote': 'Alice nënshkruan vetëm këta 32 bajt.',
+  'why.tryIt': 'Ndryshoni dokumentin: hash-i ndryshon krejtësisht, por mbetet 32 bajt.',
+  'why.callout':
+    'Kurthi: nënshkrimi i takon **hash-it**, jo tekstit. Nëse dy dokumente të ndryshme do të kishin të njëjtin hash, nënshkrimi i njërit do të vlente edhe për tjetrin. Hapat 3–6 tregojnë sa punë duhet për të gjetur një çift të tillë.',
+
+  /* ---------------------------------- 5.2 --------------------------------- */
+  'hash.title': 'Çka është një funksion hash kriptografik?',
+  'hash.intro':
+    'Funksioni hash h(x) e shndërron një hyrje me çfarëdo gjatësie në një dalje me gjatësi fikse. Një hash **kriptografik** duhet gjithashtu të jetë praktikisht i pamundur për t’u kthyer mbrapsht ose për të gjetur dy hyrje me të njëjtën dalje. Provojeni me SHA-256 të vërtetë:',
+  'hash.lab': 'Ndryshoni një shkronjë dhe krahasoni hash-et',
+  'hash.a': 'Mesazhi A',
+  'hash.b': 'Mesazhi B',
+  'hash.defaultA': 'Alice i paguan Bob-it 100 €',
+  'hash.defaultB': 'Alice i paguan Bob-it 900 €',
+  'hash.changed':
+    'bite ndryshojnë ({pct}). Një ndryshim i vogël në hyrje i ndryshon rreth gjysmën e biteve të daljes. Ky është **efekti i ortekut**: hyrje të ngjashme japin hash-e krejt të ndryshme.',
+  'hash.props.title': 'Pesë vetitë (libri 5.2)',
+  'hash.p.compress.name': '**Kompresimi**',
+  'hash.p.compress.desc': 'Çdo gjatësi e hyrjes jep një dalje me n bite (këtu n = 256).',
+  'hash.p.efficient.name': '**Efikasiteti**',
+  'hash.p.efficient.desc': 'Llogaritet shpejt: shfletuesi juaj sapo llogariti rreth **{rate}** hash-e SHA-256 në sekondë.',
+  'hash.p.oneway.name': '**Njëkahshmëria** (rezistenca ndaj paraimazhit)',
+  'hash.p.oneway.desc': 'Për një hash y të dhënë, është e pamundur të gjendet ndonjë x me h(x) = y.',
+  'hash.p.weak.name': '**Rezistenca e dobët ndaj përplasjeve**',
+  'hash.p.weak.desc': 'Për një x të dhënë, është e pamundur të gjendet një x′ tjetër me h(x′) = h(x).',
+  'hash.p.strong.name': '**Rezistenca e fortë ndaj përplasjeve**',
+  'hash.p.strong.desc': 'Është e pamundur të gjenden **çfarëdo** dy x ≠ x′ me h(x) = h(x′). Kërkon vetëm gjysmën e biteve të punës, për shkak të problemit të ditëlindjes.',
+  'hash.work': 'Sulmi gjenerik:',
+  'hash.toParadox': 'Pse rezistenca e fortë ndaj përplasjeve kushton vetëm 2^{n/2} dhe jo 2^{n}? Ky është problemi i ditëlindjes.',
+  'hash.toParadox.link': 'Hapi 3 →',
+
+  /* -------------------------------- summary ------------------------------- */
+  'sum.title': 'Përmbledhje: përgjigjet në një vend',
+  'sum.q.calc': 'Çka llogarit aplikacioni?',
+  'sum.a.calc':
+    'Probabilitetin e saktë 1 − (365/365)(364/365)…, përafrimin 1 − e^{−n²/2N}, punën për një përplasje (≈ 1,18·√N) dhe për një paraimazh (≈ 0,69·N), dhe ekzekuton sulme reale mbi SHA-256 për t’i matur ato.',
+  'sum.q.logic': 'Pse quhet “paradoks”?',
+  'sum.a.logic':
+    'Ne numërojmë njerëz, por përputhjet ndodhin mes **çifteve**. 23 njerëz formojnë 253 çifte, prandaj një ditëlindje e përbashkët është tashmë më e mundshme se jo. Në përgjithësi një përsëritje shfaqet pas rreth √N tërheqjeve, jo N.',
+  'sum.q.hash': 'Pse ka rëndësi për hash-et?',
+  'sum.a.hash':
+    'Nënshkrimi bëhet mbi hash-in, prandaj një përplasje e lejon një nënshkrim të vlejë për dy dokumente. Një hash me N = 2^{n} dalje është një “vit” me 2^{n} ditë: për një përplasje mjaftojnë rreth 2^{n/2} hash-e.',
+  'sum.q.security': 'Si ndikon në siguri?',
+  'sum.a.security':
+    'Një hash n-bitësh jep të shumtën **n/2 bite** rezistencë ndaj përplasjeve. MD5 (64) dhe SHA-1 (80) janë të thyer; përdorni SHA-256 ose më të madh (128+). Sulmi i ditëlindjes (Yuval) e kthen një përplasje në një nënshkrim të falsifikuar.',
+  'quiz.title': 'Kontrolloni veten',
+  'quiz.1.q': 'Afërsisht sa hash-e i duhen një sulmi të ditëlindjes ndaj një hash-i 64-bitësh?',
+  'quiz.1.a': '2^{64}',
+  'quiz.1.b': '2^{32}',
+  'quiz.1.c': '64 × 365',
+  'quiz.1.why': 'Një përplasje kërkon rreth √N = √(2^{64}) = 2^{32} hash-e.',
+  'quiz.2.q': 'Sa bite rezistencë ndaj përplasjeve jep SHA-256?',
+  'quiz.2.a': '128',
+  'quiz.2.b': '256',
+  'quiz.2.c': '64',
+  'quiz.2.why': 'n/2 = 256/2 = 128 bite.',
+  'quiz.3.q': 'Cila është më e lehtë për sulmuesin?',
+  'quiz.3.a': 'Të gjejë një mesazh me një hash të dhënë',
+  'quiz.3.b': 'Të dyja kërkojnë të njëjtën punë',
+  'quiz.3.c': 'Të gjejë çfarëdo dy mesazhe me të njëjtin hash',
+  'quiz.3.why': 'Çdo çift mund të përputhet, dhe numri i çifteve rritet si n²: punë 2^{n/2} në vend të 2^{n}.',
+  'quiz.right': 'Saktë!',
+  'quiz.wrong': 'Jo tamam.',
+  'quiz.retry': 'Provo përsëri',
+
+  /* --------------------------------- website -------------------------------- */
+  'hero.eyebrow': 'Siguria e Informacionit · Kapitulli 5',
+  'hero.people': 'njerëz në dhomë',
+  'hero.caption': 'Ditëlindje të rastit, njëra pas tjetrës…',
+  'hero.match': '**Përputhje!** Dy njerëz kanë të njëjtën ditëlindje pas vetëm **{n}** njerëzve.',
+  'stats.people': 'njerëz japin **50%** gjasa për një ditëlindje të përbashkët',
+  'stats.pairs': 'çifte fshihen në një dhomë me 23 njerëz',
+  'stats.sha256': 'punë për një përplasje SHA-256, jo 2^{256}',
+  'stats.md5': 'punë gjenerike për MD5, prandaj ra',
+  'footer.tagline': 'Një udhëzues interaktiv për paradoksin e ditëlindjes dhe pse ai përcakton gjatësinë e çdo hash-i kriptografik.',
+  'footer.steps': 'Hapat',
+
+  /* ------------------------------ attack visuals ----------------------------- */
+  'duel.title': 'Shikojeni: një vit me 2^{{k}} ditë',
+  'duel.desc':
+    'Çdo katror është një vlerë e mundshme e hash-it, si një ditë e vitit: këtu janë **{N}** (k = {k} bite). Çdo hash i vërtetë SHA-256 bie në katrorin e vet. Të njëjtët katrorë, dy pyetje të ndryshme:',
+  'duel.start': 'Nis të dy sulmet',
+  'duel.again': 'Provo përsëri',
+  'duel.collision': 'Sulmi i ditëlindjes',
+  'duel.collision.q': 'Ndalet kur ÇFARËDO katrori goditet dy herë.',
+  'duel.preimage': 'Sulmi i paraimazhit',
+  'duel.preimage.q': 'Ndalet vetëm kur goditet katrori i kuq objektiv {h}.',
+  'duel.found': 'U gjet',
+  'duel.hashes': 'hash-e',
+  'duel.collision.found': '`{a}` dhe `{b}` bien të dy në katrorin **{h}**.',
+  'duel.preimage.found': '`{b}` më në fund e godet objektivin **{h}**.',
+  'duel.hint': 'Shikoni rrjetën majtas: një përsëritje del shumë më herët se sa rrjeta djathtas ta godasë objektivin e vetëm.',
+  'duel.waiting': '**Përplasje pas {c} hash-eve.** Sulmi i paraimazhit ende po gjuan…',
+  'duel.verdict':
+    'Përplasje pas **{c}** hash-eve, paraimazh pas **{p}**: rreth **{x}×** më shumë punë. Me 256 bite në vend të {k}, ky hendek është 2^{128} kundrejt 2^{256}.',
+  'duel.lucky':
+    'Përplasje pas **{c}** hash-eve, paraimazh pas vetëm **{p}**: këtë herë paraimazhi pati fat. Mesatarisht i duhen rreth **{ep}** hash-e, përplasjes vetëm rreth **{ec}**. Provojeni përsëri!',
+  's3.real.title': 'Tani me shpejtësi të plotë',
+  's3.real.desc': 'Të njëjtat dy sulme pa animacion, në një worker në sfond, për k shumë më të mëdha.',
+  's5.sameHash': 'hash i njëjtë',
+  's5.stamp.valid': 'Nënshkrim i vlefshëm',
 
   /* -------------------------------- footer -------------------------------- */
   'footer.course': 'Siguria e Informacionit · Fakulteti i Inxhinierisë Elektrike dhe Kompjuterike (FIEK), Universiteti i Prishtinës',

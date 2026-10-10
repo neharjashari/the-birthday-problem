@@ -1,4 +1,5 @@
 import { useMemo, useState, type CSSProperties } from 'react';
+import { BucketDuel } from '../components/BucketDuel';
 import {
   CartesianGrid,
   ComposedChart,
@@ -34,7 +35,7 @@ export function S3HashLab() {
   };
 
   return (
-    <Section id="hash-lab" n={3} title="s3.title">
+    <Section id="hash-lab" title="s3.title">
       <Prose k="s3.intro" />
       <div className="grid-2">
         <div className="card def" style={{ '--c': colors.collision } as CSSProperties}>
@@ -48,6 +49,11 @@ export function S3HashLab() {
           </p>
         </div>
       </div>
+
+      <BucketDuel />
+
+      <h3 style={{ marginBottom: 0 }}>{t('s3.real.title')}</h3>
+      <p className="small" style={{ marginTop: 4 }}>{t('s3.real.desc')}</p>
 
       <div className="card stack">
         <Slider

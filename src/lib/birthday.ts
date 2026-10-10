@@ -9,7 +9,7 @@ export const DAYS = 365;
 
 /** Number of distinct pairs among n people: n(n-1)/2. */
 export function pairs(n: number): number {
-  return (n * (n - 1)) / 2;
+  return n < 2 ? 0 : (n * (n - 1)) / 2; // n < 2 also avoids -0 for n = 0
 }
 
 /**

@@ -1,14 +1,20 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { useI18n, type MessageKey } from '../i18n';
+import { stepOf } from '../steps';
 import { T } from './Text';
 
-export function Section({ id, n, title, children }: { id: string; n: number; title: MessageKey; children: ReactNode }) {
+/** A numbered step; its number and book section come from STEPS (src/steps.ts). */
+export function Section({ id, title, children }: { id: string; title: MessageKey; children: ReactNode }) {
   const { t } = useI18n();
+  const { n, book } = stepOf(id);
   return (
     <section id={id} className="section" aria-labelledby={`${id}-title`}>
       <div className="container stack">
         <div>
-          <span className="step-label">{t('ui.step', { n })}</span>
+          <span className="step-label">
+            {t('ui.step', { n })}
+            {book && <span className="book-chip">{t('ui.book', { s: book })}</span>}
+          </span>
           <h2 id={`${id}-title`}>
             <T k={title} />
           </h2>

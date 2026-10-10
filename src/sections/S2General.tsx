@@ -46,7 +46,7 @@ export function S2General() {
   const pre = log2TriesForPreimage(bits);
 
   return (
-    <Section id="any-n" n={2} title="s2.title">
+    <Section id="any-n" title="s2.title">
       <Prose k="s2.intro" />
       <div className="formula">
         P(n) ≈ 1 − e<sup>−n(n−1) / 2N</sup>
