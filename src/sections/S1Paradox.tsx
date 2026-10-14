@@ -27,7 +27,7 @@ export function S1Paradox() {
   );
 
   return (
-    <Section id="paradox" n={1} title="s1.title">
+    <Section id="paradox" title="s1.title">
       <GuessCard />
 
       <Prose k="s1.why" />
@@ -113,6 +113,14 @@ export function S1Paradox() {
       </div>
 
       <RoomCard n={n} />
+
+      <a className="card live-cta" href="#live">
+        <span className="live-dot" aria-hidden="true" />
+        <span>
+          <T k="s1.live" />
+        </span>
+        <span className="btn live-btn">{t('s1.live.open')}</span>
+      </a>
     </Section>
   );
 }
