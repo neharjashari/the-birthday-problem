@@ -5,7 +5,7 @@ export const sq: Messages = {
   'app.title': 'Problemi i ditëlindjes',
   'app.subtitle': 'dhe pse ai përcakton sa i gjatë duhet të jetë një hash kriptografik',
   'app.lead':
-    'Në një dhomë me vetëm 23 njerëz, probabiliteti që të paktën dy prej tyre ta kenë ditëlindjen në të njëjtën ditë të vitit është mbi 50%. I njëjti parim matematikor shpjegon pse një funksion hash 256-bitësh ofron rreth 128 bite siguri kur synohet gjetja e dy hyrjeve të ndryshme me të njëjtën vlerë hash.',
+    'Në një dhomë me vetëm 23 njerëz, probabiliteti që të paktën dy prej tyre ta kenë ditëlindjen në të njëjtën ditë të vitit është mbi 50%. I njëjti parim matematikor shpjegon pse një funksion hash 256-bitësh ofron rreth 128 bits siguri kur synohet gjetja e dy hyrjeve të ndryshme me të njëjtën vlerë hash.',
   'app.start': 'Filloni eksplorimin',
 
   'nav.s1': 'Paradoksi',
@@ -84,7 +84,7 @@ export const sq: Messages = {
   /* ---------------------------------- 3 ---------------------------------- */
   's3.title': 'Laboratori i përputhjeve të vlerave hash',
   's3.intro':
-    'Një funksion hash kriptografik e shndërron çdo hyrje në një “gjurmë” me madhësi fikse. SHA-256 i plotë ka 256 bite dalje, shumë më tepër se ç’mund të sulmohet. Prandaj e **shkurtojmë** SHA-256 në k bitet e para. Kështu fitojmë një hash të thjeshtuar në këtë demonstrim me N = 2^{k} dalje, që sillet si funksioni i vërtetë, vetëm më i vogël. Çdo hash më poshtë llogaritet drejtpërdrejt në shfletuesin tuaj.',
+    'Një funksion hash kriptografik e shndërron çdo hyrje në një “gjurmë” me madhësi fikse. SHA-256 i plotë ka 256 bits dalje, shumë më tepër se ç’mund të sulmohet. Prandaj e **shkurtojmë** SHA-256 në k bitet e para. Kështu fitojmë një hash të thjeshtuar në këtë demonstrim me N = 2^{k} dalje, që sillet si funksioni i vërtetë, vetëm më i vogël. Çdo hash më poshtë llogaritet drejtpërdrejt në shfletuesin tuaj.',
   's3.def.collision':
     '**Përplasje (collision):** gjeni *çfarëdo* dy mesazhe të ndryshme me të njëjtin hash. Vetia që e mbron: *rezistenca e fortë ndaj përplasjeve* (strong collision resistance). Puna e pritur ≈ 2^{k/2}.',
   's3.def.preimage':
@@ -128,7 +128,7 @@ export const sq: Messages = {
   /* ---------------------------------- 4 ---------------------------------- */
   's4.title': 'Pse ka rëndësi në praktikë',
   's4.rule':
-    '**Rregull praktik:** një hash n-bitësh ofron të shumtën n/2 bite rezistencë ndaj përplasjeve. Për 128 bite siguri kundër përplasjeve (collisions) ju duhet një hash me të paktën 256 bite.',
+    '**Rregull praktik:** një hash n-bitësh ofron të shumtën n/2 bits rezistencë ndaj përplasjeve. Për 128 bits siguri kundër përplasjeve (collisions) ju duhet një hash me të paktën 256 bits.',
   's4.speed': 'Shpejtësia e sulmuesit',
   's4.speed.cpu': 'Një bërthamë CPU',
   's4.speed.gpu': 'Një GPU',
@@ -161,7 +161,7 @@ export const sq: Messages = {
     'Duke përdorur vlera të rastësishme 96-bitëshe, të cilat synohen të përdoren vetëm një herë, NIST SP 800-38D e kufizon një çelës në 2^{32} mesazhe, që gjasat për një këtë të përsëritur të mbeten të papërfillshme. Një përsëritje e vetme e thyen autentikimin e GCM-së.',
   's4.card.uuid.title': 'Identifikuesit e rastësishëm',
   's4.card.uuid':
-    'Një UUID i rastësishëm (versioni 4) ka 122 bite të rastësishme. Do t’ju duheshin rreth 2,7 × 10^{18} të tillë për 50% gjasa që të ketë një dublikatë.',
+    'Një UUID i rastësishëm (versioni 4) ka 122 bits të rastësishme. Do t’ju duheshin rreth 2,7 × 10^{18} të tillë për 50% gjasa që të ketë një dublikatë.',
 
   /* ---------------------------------- 5 ---------------------------------- */
   's5.title': 'Sulmi i Yuval-it: falsifikimi i një nënshkrimi',
@@ -188,7 +188,7 @@ export const sq: Messages = {
     'U gjet pas {fair} varianteve të ndershme + {fraud} mashtruese, për {time}. Për t’u përputhur me një kontratë *fikse* me brute force do të duheshin rreth {brute} variante.',
   's5.sigOk': 'Nënshkrimi i Alice-s verifikohet në të dy kontratat',
   's5.defense':
-    '**Mbrojtja:** përdorni një hash me të paktën 256 bite dhe mos nënshkruani kurrë saktësisht atë që ka përgatitur dikush tjetër: shtoni diçka të paparashikueshme tuajën (p.sh. një vlerë të rastësishme) para nënshkrimit. Kjo ia prish Mallory-t tabelën e parallogaritur.',
+    '**Mbrojtja:** përdorni një hash me të paktën 256 bits dhe mos nënshkruani kurrë saktësisht atë që ka përgatitur dikush tjetër: shtoni diçka të paparashikueshme tuajën (p.sh. një vlerë të rastësishme) para nënshkrimit. Kjo ia prish Mallory-t tabelën e parallogaritur.',
   's5.placeholder': 'Shtypni butonin që Mallory të kërkojë një çift kontratash që përputhen.',
 
   's1.live': '**Provojeni me një dhomë të vërtetë:** klasa i dërgon ditëlindjet nga telefoni dhe projektori e tregon kalendarin duke u mbushur live.',
@@ -248,11 +248,11 @@ export const sq: Messages = {
     'Nënshkrimi digjital është i ngadalshëm dhe punon me një hyrje të shkurtër me gjatësi fikse. Prandaj nuk e nënshkruajmë kurrë vetë dokumentin, por **hash-in** e tij, një gjurmë të shkurtër të dokumentit. Kushdo mund ta rillogarisë hash-in dhe ta verifikojë nënshkrimin.',
   'why.doc': 'Kontratë: Alice i paguan Bob-it 100 € deri më 1 mars.',
   'why.docLabel': 'Dokumenti (me çfarëdo gjatësie)',
-  'why.bytes': '{n} bajt',
+  'why.bytes': '{n} byte',
   'why.digest': 'Hash-i i tij (gjithmonë me të njëjtën gjatësi)',
   'why.signVerb': 'nënshkruaj',
   'why.sign': 'Nënshkrimi',
-  'why.signNote': 'Alice nënshkruan vetëm këta 32 bajt.',
+  'why.signNote': 'Alice nënshkruan vetëm këta 32 byte.',
   'why.tryIt': 'Ndryshoni dokumentin: hash-i ndryshon krejtësisht, por mbetet 32 bajt.',
   'why.callout':
     'Kurthi: nënshkrimi i takon **hash-it**, jo tekstit. Nëse dy dokumente të ndryshme do të kishin të njëjtin hash, nënshkrimi i njërit do të vlente edhe për tjetrin. Hapat 3–6 tregojnë sa punë duhet për të gjetur një çift të tillë.',
@@ -267,10 +267,10 @@ export const sq: Messages = {
   'hash.defaultA': 'Alice i paguan Bob-it 100 €',
   'hash.defaultB': 'Alice i paguan Bob-it 900 €',
   'hash.changed':
-    'bite ndryshojnë ({pct}). Një ndryshim i vogël në hyrje i ndryshon rreth gjysmën e biteve të daljes. Ky është **efekti i ortekut**: hyrje të ngjashme japin hash-e krejt të ndryshme.',
+    'bits ndryshojnë ({pct}). Një ndryshim i vogël në hyrje i ndryshon rreth gjysmën e bitave të daljes. Ky është **efekti i ortekut**: hyrje të ngjashme japin hash-e krejt të ndryshme.',
   'hash.props.title': 'Pesë vetitë',
   'hash.p.compress.name': '**Kompresimi**',
-  'hash.p.compress.desc': 'Çdo gjatësi e hyrjes jep një dalje me n bite (këtu n = 256).',
+  'hash.p.compress.desc': 'Çdo gjatësi e hyrjes jep një dalje me n bits (këtu n = 256).',
   'hash.p.efficient.name': '**Efikasiteti**',
   'hash.p.efficient.desc': 'Llogaritet shpejt: shfletuesi juaj sapo llogariti rreth **{rate}** hash-e SHA-256 në sekondë.',
   'hash.p.oneway.name': '**Njëkahshmëria** (rezistenca ndaj paraimazhit)',
@@ -303,11 +303,11 @@ export const sq: Messages = {
   'quiz.1.b': '2^{32}',
   'quiz.1.c': '64 × 365',
   'quiz.1.why': 'Një përplasje kërkon rreth √N = √(2^{64}) = 2^{32} hash-e.',
-  'quiz.2.q': 'Sa bite rezistencë ndaj përplasjeve jep SHA-256?',
+  'quiz.2.q': 'Sa bits rezistencë ndaj përplasjeve jep SHA-256?',
   'quiz.2.a': '128',
   'quiz.2.b': '256',
   'quiz.2.c': '64',
-  'quiz.2.why': 'n/2 = 256/2 = 128 bite.',
+  'quiz.2.why': 'n/2 = 256/2 = 128 bits.',
   'quiz.3.q': 'Cila është më e lehtë për sulmuesin?',
   'quiz.3.a': 'Të gjejë një mesazh me një hash të dhënë',
   'quiz.3.b': 'Të dyja kërkojnë të njëjtën punë',
@@ -342,7 +342,7 @@ export const sq: Messages = {
   'duel.hint': 'Shikoni rrjetën majtas: një përsëritje del shumë më herët se sa rrjeta djathtas ta godasë objektivin e vetëm.',
   'duel.waiting': '**Përplasje pas {c} hash-eve.** Sulmi i paraimazhit ende po gjuan…',
   'duel.verdict':
-    'Përplasje pas **{c}** hash-eve, paraimazh pas **{p}**: rreth **{x}×** më shumë punë. Me 256 bite në vend të {k}, ky hendek është 2^{128} kundrejt 2^{256}.',
+    'Përplasje pas **{c}** hash-eve, paraimazh pas **{p}**: rreth **{x}×** më shumë punë. Me 256 bits në vend të {k}, ky hendek është 2^{128} kundrejt 2^{256}.',
   'duel.lucky':
     'Përplasje pas **{c}** hash-eve, paraimazh pas vetëm **{p}**: këtë herë paraimazhi pati fat. Mesatarisht i duhen rreth **{ep}** hash-e, përplasjes vetëm rreth **{ec}**. Provojeni përsëri!',
   's3.real.title': 'Tani me shpejtësi të plotë',
