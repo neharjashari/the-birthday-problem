@@ -3,6 +3,9 @@ export const AUTHORS = ['Albena Veseli', 'Nehar Jashari'];
 
 export const REPO_URL = 'https://github.com/neharjashari/the-birthday-problem';
 
+/** Where GitHub Pages publishes the app. The live-mode QR code uses it when the projector runs on localhost. */
+export const PUBLIC_URL = 'https://neharjashari.github.io/the-birthday-problem/';
+
 export const REFERENCES: Array<{ label: string; url?: string }> = [
   { label: 'Birthday problem — Wikipedia', url: 'https://en.wikipedia.org/wiki/Birthday_problem' },
   { label: 'Birthday attack — Wikipedia', url: 'https://en.wikipedia.org/wiki/Birthday_attack' },

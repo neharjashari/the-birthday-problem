@@ -14,9 +14,9 @@ describe('format', () => {
   });
 
   it('formats dates in Albanian without relying on Intl locale data', () => {
-    expect(monthName(2, 'sq')).toBe('mars');
+    expect(monthName(2, 'sq')).toBe('Mars');
     expect(monthName(2, 'en')).toBe('March');
-    expect(fmtDayOfYear(70, 'sq')).toBe('12 mars');
+    expect(fmtDayOfYear(70, 'sq')).toBe('12 Mars');
     expect(fmtDayOfYear(70, 'en')).toBe('March 12');
   });
 

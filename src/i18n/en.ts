@@ -204,7 +204,7 @@ export const en = {
   'live.newRoom': 'New room',
   'live.status.connecting': 'Connecting…',
   'live.status.live': 'Live',
-  'live.status.error': 'Connection lost',
+  'live.status.error': 'Connection lost, reconnecting…',
   'live.scan': 'Scan and send your birthday',
   'live.students': 'students so far',
   'live.theory': 'The theory, recomputed with every new birthday',
@@ -219,6 +219,11 @@ export const en = {
   'live.match': 'Match! Students {people} were all born on **{date}**.',
   'live.manual': 'Add by hand:',
   'live.add': 'Add',
+  'live.close': 'Close voting',
+  'live.reopen': 'Reopen voting',
+  'live.closed': 'Voting is closed: the result is frozen.',
+  'live.late': '{n} later answers are not counted.',
+  'live.localNote': 'This projector runs locally, so the QR code opens the published site. Votes reach this screen either way.',
 
   'vote.title': 'When is your birthday?',
   'vote.privacy': 'Only the day and month are sent, with no name. Nobody sees who sent what.',
@@ -227,6 +232,7 @@ export const en = {
   'vote.feb29': 'Born on 29 February? Pick 28 February (the model uses a 365-day year).',
   'vote.send': 'Send',
   'vote.sending': 'Sending…',
+  'vote.retrying': 'Many phones are sending at once. Trying again…',
   'vote.sent': 'Sent: **{date}**.',
   'vote.look': 'Now look at the projector.',
   'vote.change': 'Change my answer',
@@ -237,13 +243,7 @@ export const en = {
   'nav.hash': 'Hash function',
   'nav.summary': 'Summary',
   'nav.live': 'Live',
-  'ui.book': 'Book {s}',
   'app.live': 'Live classroom demo',
-  'app.covers': 'Covers chapter 5 of the book:',
-  'book.5.1': 'Introduction',
-  'book.5.2': 'Crypto hash function',
-  'book.5.3': 'Birthday problem',
-  'book.5.4': 'Birthday attack',
 
   /* ---------------------------------- 5.1 --------------------------------- */
   'why.title': 'Why do we need hash functions?',
@@ -271,7 +271,7 @@ export const en = {
   'hash.defaultB': 'Alice pays Bob 900 €',
   'hash.changed':
     'bits differ ({pct}). A tiny change in the input flips about half of the output bits. This is the **avalanche effect**: similar inputs give unrelated hashes.',
-  'hash.props.title': 'The five properties (book 5.2)',
+  'hash.props.title': 'The five properties',
   'hash.p.compress.name': '**Compression**',
   'hash.p.compress.desc': 'Any input length gives an output of n bits (here n = 256).',
   'hash.p.efficient.name': '**Efficiency**',
@@ -321,14 +321,10 @@ export const en = {
   'quiz.retry': 'Try again',
 
   /* --------------------------------- website -------------------------------- */
-  'hero.eyebrow': 'Information Security · Chapter 5',
+  'hero.eyebrow': 'Information Security',
   'hero.people': 'people in the room',
   'hero.caption': 'Random birthdays arriving one by one…',
   'hero.match': '**Match!** Two people share a birthday after only **{n}** people.',
-  'stats.people': 'people give a **50%** chance of a shared birthday',
-  'stats.pairs': 'pairs hide in a room of 23',
-  'stats.sha256': 'work to find a SHA-256 collision, not 2^{256}',
-  'stats.md5': 'generic work for MD5, which is why it fell',
   'footer.tagline': 'An interactive guide to the birthday paradox and why it sets the length of every cryptographic hash.',
   'footer.steps': 'Steps',
 

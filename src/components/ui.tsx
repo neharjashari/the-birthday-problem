@@ -3,18 +3,15 @@ import { useI18n, type MessageKey } from '../i18n';
 import { stepOf } from '../steps';
 import { T } from './Text';
 
-/** A numbered step; its number and book section come from STEPS (src/steps.ts). */
+/** A numbered step; its number comes from STEPS (src/steps.ts). */
 export function Section({ id, title, children }: { id: string; title: MessageKey; children: ReactNode }) {
   const { t } = useI18n();
-  const { n, book } = stepOf(id);
+  const { n } = stepOf(id);
   return (
     <section id={id} className="section" aria-labelledby={`${id}-title`}>
       <div className="container stack">
         <div>
-          <span className="step-label">
-            {t('ui.step', { n })}
-            {book && <span className="book-chip">{t('ui.book', { s: book })}</span>}
-          </span>
+          <span className="step-label">{t('ui.step', { n })}</span>
           <h2 id={`${id}-title`}>
             <T k={title} />
           </h2>

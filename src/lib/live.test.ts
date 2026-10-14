@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dayOfYear, daysInMonth, decodeVote, encodeVote, isValidRoom, newRoomCode, tallyVotes } from './live';
+import { dayOfYear, daysInMonth, decodeVote, encodeVote, isValidRoom, newRoomCode, postWithRetry, tallyVotes, voteUrlFor } from './live';
 
 describe('dayOfYear', () => {
   it('maps calendar dates to 0..364', () => {
@@ -59,5 +59,58 @@ describe('tallyVotes', () => {
     expect(t.shared.get(5)).toEqual([1, 2, 4]);
     expect(t.shared.get(9)).toEqual([3, 5]);
     expect(t.matchingPairs).toBe(3 + 1);
+  });
+});
+
+describe('voteUrlFor', () => {
+  const pub = 'https://example.github.io/app/';
+  it('uses the current page when published', () => {
+    const r = voteUrlFor({ hostname: 'example.github.io', origin: 'https://example.github.io', pathname: '/app/' }, 'abc123', pub);
+    expect(r).toEqual({ url: 'https://example.github.io/app/#vote/abc123', usesPublicUrl: false });
+  });
+  it('points phones at the published site when the projector runs locally', () => {
+    for (const hostname of ['localhost', '127.0.0.1', 'my-mac.local']) {
+      const r = voteUrlFor({ hostname, origin: `http://${hostname}:5173`, pathname: '/' }, 'abc123', pub);
+      expect(r).toEqual({ url: 'https://example.github.io/app/#vote/abc123', usesPublicUrl: true });
+    }
+  });
+});
+
+describe('postWithRetry', () => {
+  const noSleep = () => Promise.resolve();
+  const response = (status: number) => ({ ok: status >= 200 && status < 300, status }) as Response;
+
+  it('retries rate limits and server errors, then succeeds', async () => {
+    const statuses = [429, 503, 200];
+    const calls: string[] = [];
+    const retries: number[] = [];
+    const fetchFn = (async (url: string, init?: RequestInit) => {
+      calls.push(`${init?.method} ${url} ${init?.body}`);
+      return response(statuses.shift()!);
+    }) as unknown as typeof fetch;
+    await postWithRetry('https://x/topic', 'a:1', { fetchFn, sleep: noSleep, onRetry: (n) => retries.push(n) });
+    expect(calls).toEqual(['POST https://x/topic a:1', 'POST https://x/topic a:1', 'POST https://x/topic a:1']);
+    expect(retries).toEqual([1, 2]);
+  });
+
+  it('retries network errors', async () => {
+    let n = 0;
+    const fetchFn = (async () => {
+      if (n++ === 0) throw new TypeError('Failed to fetch');
+      return response(200);
+    }) as unknown as typeof fetch;
+    await expect(postWithRetry('https://x/t', 'a:1', { fetchFn, sleep: noSleep })).resolves.toBeUndefined();
+  });
+
+  it('gives up after the last retry, and at once on client errors', async () => {
+    let n = 0;
+    const always429 = (async () => (n++, response(429))) as unknown as typeof fetch;
+    await expect(postWithRetry('https://x/t', 'a:1', { fetchFn: always429, sleep: noSleep, delays: [1, 1] })).rejects.toThrow('429');
+    expect(n).toBe(3);
+
+    let m = 0;
+    const bad = (async () => (m++, response(400))) as unknown as typeof fetch;
+    await expect(postWithRetry('https://x/t', 'a:1', { fetchFn: bad, sleep: noSleep })).rejects.toThrow('400');
+    expect(m).toBe(1);
   });
 });

@@ -5,7 +5,7 @@ import { useI18n } from '../i18n';
 import { fmtDayOfYear, monthName } from '../lib/format';
 import { dayOfYear, daysInMonth, newRoomCode } from '../lib/live';
 
-type SendState = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; day: number } | { kind: 'error' };
+type SendState = { kind: 'idle' } | { kind: 'sending'; retry: number } | { kind: 'sent'; day: number } | { kind: 'error' };
 
 function load(key: string): string | null {
   try {
@@ -44,9 +44,9 @@ export function VotePage({ room }: { room: string }) {
   const submit = async () => {
     if (month < 0 || day < 1) return;
     const d = dayOfYear(month, day);
-    setState({ kind: 'sending' });
+    setState({ kind: 'sending', retry: 0 });
     try {
-      await sendVote(room, voterId(), d);
+      await sendVote(room, voterId(), d, { onRetry: (retry) => setState({ kind: 'sending', retry }) });
       save(votedKey, String(d));
       setState({ kind: 'sent', day: d });
     } catch {
@@ -119,6 +119,7 @@ export function VotePage({ room }: { room: string }) {
             <button className="btn" type="submit" disabled={month < 0 || day < 1 || state.kind === 'sending'}>
               {state.kind === 'sending' ? t('vote.sending') : t('vote.send')}
             </button>
+            {state.kind === 'sending' && state.retry > 0 && <p className="small muted" style={{ margin: 0 }}>{t('vote.retrying')}</p>}
             {state.kind === 'error' && <p style={{ color: 'var(--bad)', margin: 0 }}>{t('vote.error')}</p>}
           </form>
         )}

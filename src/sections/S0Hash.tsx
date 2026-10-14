@@ -13,7 +13,7 @@ const PROPS: Array<{ key: string; work?: 'n' | 'half' }> = [
   { key: 'strong', work: 'half' },
 ];
 
-/** Book §5.2: what a cryptographic hash is, shown on real SHA-256. */
+/** What a cryptographic hash is, shown on real SHA-256. */
 export function S0Hash() {
   const { t, lang } = useI18n();
   const [a, setA] = useState<string | null>(null);

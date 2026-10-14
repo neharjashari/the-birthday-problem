@@ -21,7 +21,7 @@ export function StepRail() {
         <span style={{ '--fill': fill } as CSSProperties} />
       </div>
       <ol>
-        {STEPS.map(({ id, nav, book }, i) => (
+        {STEPS.map(({ id, nav }, i) => (
           <li key={id}>
             <a
               href={`#${id}`}
@@ -31,7 +31,6 @@ export function StepRail() {
               <span className="rail-dot">{i + 1}</span>
               <span className="rail-text">
                 <span className="rail-label">{t(nav)}</span>
-                {book && <span className="rail-book">{t('ui.book', { s: book })}</span>}
               </span>
             </a>
           </li>

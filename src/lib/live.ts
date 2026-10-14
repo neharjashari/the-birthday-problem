@@ -7,7 +7,11 @@
  * repeated send replaces the earlier birthday instead of adding a second person.
  */
 
-export const NTFY_BASE = 'https://ntfy.sh';
+/**
+ * The ntfy server. Override at build time with VITE_NTFY_BASE (e.g. a self-hosted
+ * ntfy, or a local mock for tests).
+ */
+export const NTFY_BASE: string = (import.meta.env?.VITE_NTFY_BASE as string | undefined) || 'https://ntfy.sh';
 
 const ROOM_RE = /^[a-z0-9]{4,16}$/;
 
@@ -73,4 +77,71 @@ export function tallyVotes(votes: Array<{ voter: string; day: number }>): Tally 
   for (const people of shared.values()) matchingPairs += (people.length * (people.length - 1)) / 2;
 
   return { days, shared, matchingPairs };
+}
+
+/* ------------------------------------------------------------------------- */
+/* URLs                                                                       */
+/* ------------------------------------------------------------------------- */
+
+/** Server-Sent Events stream for a room; `since` is "all" or the id of the last message seen. */
+export function sseUrl(room: string, since: string = 'all'): string {
+  return `${NTFY_BASE}/${topicFor(room)}/sse?since=${encodeURIComponent(since)}`;
+}
+
+export function isLocalHost(hostname: string): boolean {
+  return hostname === 'localhost' || hostname === '[::1]' || hostname.startsWith('127.') || hostname.endsWith('.local');
+}
+
+/**
+ * The link the QR code encodes. When the projector runs on localhost (npm run dev),
+ * phones can't reach it, so point them at the published site instead: votes go through
+ * ntfy either way, so a local projector and a published vote page work together.
+ */
+export function voteUrlFor(here: { hostname: string; origin: string; pathname: string }, room: string, publicUrl: string) {
+  const local = isLocalHost(here.hostname);
+  const base = local ? publicUrl : `${here.origin}${here.pathname}`;
+  return { url: `${base}#vote/${room}`, usesPublicUrl: local };
+}
+
+/* ------------------------------------------------------------------------- */
+/* Sending with retries                                                       */
+/* ------------------------------------------------------------------------- */
+
+/** Backoff before retry 1, 2, 3, 4 (ms). A classroom shares one public IP, and ntfy
+ * rate-limits per IP, so a burst of phones can get HTTP 429 for a few seconds. */
+export const RETRY_DELAYS_MS = [1000, 2000, 4000, 8000];
+
+export interface PostOptions {
+  fetchFn?: typeof fetch;
+  delays?: number[];
+  sleep?: (ms: number) => Promise<void>;
+  /** Called before each retry with the retry number (1-based). */
+  onRetry?: (attempt: number) => void;
+}
+
+/** POSTs `body`, retrying on network errors, HTTP 429 and 5xx. Throws when out of retries. */
+export async function postWithRetry(url: string, body: string, opts: PostOptions = {}): Promise<void> {
+  const fetchFn = opts.fetchFn ?? fetch;
+  const delays = opts.delays ?? RETRY_DELAYS_MS;
+  const sleep = opts.sleep ?? ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)));
+  for (let attempt = 0; ; attempt++) {
+    let status = 0; // 0 = network error
+    try {
+      // a text/plain body keeps this a "simple" CORS request: no preflight, half the requests
+      const res = await fetchFn(url, { method: 'POST', body });
+      if (res.ok) return;
+      status = res.status;
+    } catch {
+      status = 0;
+    }
+    const retryable = status === 0 || status === 429 || status >= 500;
+    if (!retryable || attempt >= delays.length) throw new Error(status ? `ntfy HTTP ${status}` : 'network error');
+    opts.onRetry?.(attempt + 1);
+    // jitter, so 30 phones that were refused together don't all retry together
+    await sleep(delays[attempt] * (0.75 + Math.random() * 0.5));
+  }
+}
+
+export function sendVote(room: string, voter: string, day: number, opts: PostOptions = {}): Promise<void> {
+  return postWithRetry(`${NTFY_BASE}/${topicFor(room)}`, encodeVote(voter, day), opts);
 }

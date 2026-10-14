@@ -234,6 +234,10 @@ sub {
   gap: 12px;
   margin: 24px 0;
 }
+.live-qr .hero-number {
+  justify-content: center;
+  padding-top: 24px;
+}
 .hero-number b {
   font-size: clamp(3rem, 2rem + 5vw, 5rem);
   line-height: 1;
@@ -891,15 +895,7 @@ td.num {
   margin: 0;
 }
 
-/* ------------------------------ book structure ----------------------------- */
-.book-chip {
-  margin-left: 10px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  letter-spacing: 0.02em;
-  text-transform: none;
-}
+/* ---------------------------------- chips ---------------------------------- */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -918,13 +914,6 @@ td.num {
 }
 .chip b {
   color: var(--accent);
-}
-.book-map {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-top: 28px;
 }
 .hero .btn-row .btn {
   text-decoration: none;
@@ -988,7 +977,7 @@ td.num {
   }
 }
 
-/* §5.1 flow */
+/* why-hash flow */
 .flow {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) auto minmax(0, 1fr) auto minmax(0, 0.8fr);
@@ -1063,7 +1052,7 @@ td.num {
   color: var(--accent);
 }
 
-/* §5.2 hash lab */
+/* hash function demo */
 .text-input {
   font: inherit;
   padding: 10px 12px;
@@ -1289,7 +1278,6 @@ td.num {
 h1,
 h2,
 .brand,
-.stat b,
 .hv-n {
   font-family: var(--display);
   letter-spacing: -0.02em;
@@ -1454,37 +1442,6 @@ h2 {
 }
 
 /* stats band */
-.stats-band {
-  background: var(--band);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-  padding-top: 28px;
-  padding-bottom: 28px;
-}
-@media (max-width: 860px) {
-  .stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-.stat {
-  display: grid;
-  gap: 4px;
-}
-.stat b {
-  font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem);
-  line-height: 1.1;
-  color: var(--ink);
-}
-.stat span {
-  font-size: 0.9rem;
-  color: var(--ink-2);
-}
-
 /* sections: alternate bands, big ghost step number */
 .section {
   position: relative;
@@ -1573,7 +1530,7 @@ a.card:hover,
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1.4fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
   gap: 40px;
 }
 @media (max-width: 860px) {
@@ -1581,19 +1538,12 @@ a.card:hover,
     grid-template-columns: minmax(0, 1fr);
   }
 }
-.footer-steps,
 .footer-refs {
   margin: 0 0 16px;
   padding-left: 1.2em;
   display: grid;
   gap: 6px;
   font-size: 0.9rem;
-}
-.footer-steps .small {
-  color: #77766f;
-}
-.footer .live-pill {
-  color: #fff;
 }
 .footer-bottom {
   margin-top: 40px;
@@ -1621,11 +1571,11 @@ a.card:hover,
     transition: none;
   }
 }
-/* hero, stats and footer line up with a slightly wider column than the steps */
+/* header, hero and footer share the steps' content column, so their edges line up */
+.header .container.wide,
 .hero-inner.container.wide,
-.stats.container.wide,
 .footer .container.wide {
-  max-width: 1180px;
+  max-width: 1040px;
 }
 
 /* ------------------------------- header nav --------------------------------
@@ -1830,11 +1780,6 @@ a.card:hover,
     font-size: 0.85rem;
     font-weight: 500;
     white-space: nowrap;
-  }
-  .rail-book {
-    font-size: 0.7rem;
-    color: var(--muted);
-    opacity: 0.8;
   }
   .step-rail a:hover {
     color: var(--ink);
@@ -2283,6 +2228,8 @@ a.card:hover,
 @media (max-width: 480px) {
   .contract-card h3 {
     padding-right: 0;
+  }
+  .contract-card:has(.stamp) h3 {
     padding-top: 56px;
   }
 }
@@ -2304,4 +2251,122 @@ a.card:hover,
   white-space: normal;
   overflow-wrap: anywhere;
   line-height: 1.7;
+}
+
+/* live mode: voting closed */
+.live-closed {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.bar-btn[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface-2));
+}
+
+/* ------------------------------- phones ------------------------------- */
+/* the full title does not fit next to the tools: keep the "23" mark */
+@media (max-width: 420px) {
+  .header .brand-name {
+    display: none;
+  }
+}
+/* why-hash flow: a downward arrow with its label, instead of rotating "→" and the label */
+@media (max-width: 860px) {
+  .flow-arrow {
+    transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0;
+  }
+  .flow-arrow::before {
+    content: '↓';
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+  .flow-arrow span {
+    font-size: 0.7rem;
+  }
+}
+@media (max-width: 640px) {
+  /* long products wrap instead of scrolling sideways */
+  .formula {
+    white-space: normal;
+    line-height: 2.1;
+  }
+  /* live call-to-action: dot beside the text, button underneath */
+  .live-cta {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 10px 12px;
+  }
+  .live-cta .live-dot {
+    margin-top: 0.45em;
+  }
+  .live-cta .btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  /* attacker speed: a 2 × 2 grid instead of four squeezed buttons */
+  #practice .segmented {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  #practice .segmented button {
+    padding: 8px 6px;
+  }
+  /* "In practice" table: one card per hash function */
+  table.wide {
+    min-width: 0;
+  }
+  table.wide thead {
+    display: none;
+  }
+  table.wide,
+  table.wide tbody,
+  table.wide tr,
+  table.wide td {
+    display: block;
+    width: 100%;
+  }
+  table.wide tr {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--grid);
+  }
+  table.wide td {
+    border: 0;
+    padding: 3px 0;
+  }
+  table.wide td[data-label] {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  table.wide td[data-label]::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: left;
+  }
+  table.wide td.known {
+    display: block;
+    padding-top: 6px;
+  }
+  table.wide td.known::before {
+    display: block;
+    margin-bottom: 2px;
+  }
+}
+/* live page on narrow screens: compact back button, QR link below the code */
+.live-bar .back-btn {
+  justify-self: start;
+}
+.live-qr img {
+  display: block;
+  margin-inline: auto;
 }

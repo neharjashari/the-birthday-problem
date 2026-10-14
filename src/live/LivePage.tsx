@@ -9,7 +9,8 @@ import { sendVote, useLiveVotes } from '../hooks/useLiveVotes';
 import { useI18n } from '../i18n';
 import { DAYS, pairs, probCollisionExact } from '../lib/birthday';
 import { fmtDayOfYear, fmtInt, fmtNum, fmtPct, monthName } from '../lib/format';
-import { dayOfYear, daysInMonth, newRoomCode, tallyVotes } from '../lib/live';
+import { PUBLIC_URL } from '../config';
+import { dayOfYear, daysInMonth, newRoomCode, tallyVotes, voteUrlFor } from '../lib/live';
 
 const YEAR = 2025;
 /** How many of the most recent factors of the product to spell out. */
@@ -20,10 +21,16 @@ export function LivePage({ room }: { room: string }) {
   const { t, lang, setLang } = useI18n();
   const { colors, theme, toggle } = useTheme();
   const { votes, status } = useLiveVotes(room);
-  const tally = useMemo(() => tallyVotes(votes), [votes]);
+  // "Close voting" freezes the result: answers that arrive later (latecomers, or a
+  // classmate scripting fake votes) are counted but left out until voting reopens.
+  const [closedAt, setClosedAt] = useState<number | null>(null);
+  useEffect(() => setClosedAt(null), [room]);
+  const counted = useMemo(() => (closedAt === null ? votes : votes.slice(0, closedAt)), [votes, closedAt]);
+  const late = votes.length - counted.length;
+  const tally = useMemo(() => tallyVotes(counted), [counted]);
   const n = tally.days.length;
 
-  const voteUrl = `${location.origin}${location.pathname}#vote/${room}`;
+  const { url: voteUrl } = voteUrlFor(location, room, PUBLIC_URL);
   // SVG needs no <canvas>, so it renders the same everywhere
   const [qr, setQr] = useState<{ svg: string } | { error: string } | null>(null);
   useEffect(() => {
@@ -63,6 +70,14 @@ export function LivePage({ room }: { room: string }) {
           </span>
         </div>
         <div className="live-actions">
+          <button
+            className="bar-btn"
+            aria-pressed={closedAt !== null}
+            onClick={() => setClosedAt((c) => (c === null ? votes.length : null))}
+          >
+            {closedAt === null ? <LockIcon /> : <UnlockIcon />}
+            <span>{closedAt === null ? t('live.close') : t('live.reopen')}</span>
+          </button>
           <button className="bar-btn" onClick={() => (location.hash = `#live/${newRoomCode()}`)}>
             <RefreshIcon />
             <span>{t('live.newRoom')}</span>
@@ -90,7 +105,12 @@ export function LivePage({ room }: { room: string }) {
           ) : (
             <div className="qr-placeholder">{qr && 'error' in qr && <span className="small">{qr.error}</span>}</div>
           )}
-          <code className="small" style={{ wordBreak: 'break-all' }}>{voteUrl}</code>
+          {closedAt !== null && (
+            <p className="small live-closed mx-0">
+              {t('live.closed')}
+              {late > 0 && <> {t('live.late', { n: late })}</>}
+            </p>
+          )}
           <div className="hero-number" style={{ margin: 0 }}>
             <b>{n}</b>
             <span className="muted">{t('live.students')}</span>
@@ -225,14 +245,18 @@ function ManualAdd({ room }: { room: string }) {
   const [month, setMonth] = useState(0);
   const [day, setDay] = useState(1);
   const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
   return (
     <form
       className="btn-row"
       onSubmit={async (e) => {
         e.preventDefault();
         setBusy(true);
+        setFailed(false);
         try {
           await sendVote(room, `m-${newRoomCode(8)}`, dayOfYear(month, day));
+        } catch {
+          setFailed(true);
         } finally {
           setBusy(false);
         }
@@ -264,6 +288,7 @@ function ManualAdd({ room }: { room: string }) {
       <button className="btn secondary" type="submit" disabled={busy}>
         {t('live.add')}
       </button>
+      {failed && <span className="small" style={{ color: 'var(--bad)' }}>{t('vote.error')}</span>}
     </form>
   );
 }
@@ -271,6 +296,20 @@ function ManualAdd({ room }: { room: string }) {
 const ArrowLeft = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M19 12H5M11 18l-6-6 6-6" />
+  </svg>
+);
+
+const LockIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="5" y="11" width="14" height="10" rx="2" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+  </svg>
+);
+
+const UnlockIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="5" y="11" width="14" height="10" rx="2" />
+    <path d="M8 11V7a4 4 0 0 1 7.5-2" />
   </svg>
 );
 

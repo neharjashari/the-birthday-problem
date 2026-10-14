@@ -5,7 +5,7 @@ import { useI18n } from '../i18n';
 import { fmtInt } from '../lib/format';
 import { sha256Hex, utf8ToBytes } from '../lib/hash';
 
-/** Book §5.1: why we sign a short hash instead of the whole document. */
+/** Why we sign a short hash instead of the whole document. */
 export function S0Why() {
   const { t, lang } = useI18n();
   const [edited, setEdited] = useState<string | null>(null);

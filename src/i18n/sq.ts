@@ -58,22 +58,22 @@ export const sq: Messages = {
   's2.intro':
     'Asgjë në këtë arsyetim nuk varet nga ditëlindjet. Nëse vlerat zgjidhen në mënyrë uniforme nga N mundësi (ditë, numra identifikues, dalje të një hash-i), probabiliteti i një përsëritjeje pas n tërheqjeve është afërsisht:',
   's2.after':
-    'Pra, për 50% gjasa përplasjeje(collision) mjaftojnë vetëm **n ≈ 1,18·√N** tërheqje: **rrënja katrore** e hapësirës. Për t’u përputhur me një vlerë *të caktuar* duhen rreth **0,69·N** prova.',
+    'Pra, për 50% gjasa përplasjeje (collision) mjaftojnë vetëm **n ≈ 1,18·√N** tërheqje: **rrënja katrore** e hapësirës. Për t’u përputhur me një vlerë *të caktuar* duhen rreth **0,69·N** prova.',
   's2.slider': 'Madhësia e daljes',
   's2.bitsValue': '{bits} bite',
   's2.tile.N': 'Vlera të mundshme N',
-  's2.tile.coll': 'Tërheqje për 50% përplasje(collision)',
-  's2.tile.pre': 'Prova për 50% paraimazh(preimage)',
+  's2.tile.coll': 'Tërheqje për 50% përplasje (collision)',
+  's2.tile.pre': 'Prova për 50% paraimazh (preimage)',
   's2.tile.ratio': 'Përparësia e sulmuesit',
   's2.tile.ratioNote': 'herë më pak punë',
   's2.chart.title': 'Një lakore për çdo N',
   's2.chart.desc':
-    'Kur vizatohet kundrejt n/√N, probabiliteti i përplasjes(collision) ndjek të njëjtën lakore, pavarësisht nga madhësia e hapësirës.',
+    'Kur vizatohet kundrejt n/√N, probabiliteti i përplasjes (collision) ndjek të njëjtën lakore, pavarësisht nga madhësia e hapësirës.',
   's2.chart.approx': 'Përafrimi, çdo N',
   's2.chart.exact': 'Saktë, N = 365',
   's2.table.space': 'Hapësira',
-  's2.table.coll': '50% përplasje(collision) pas',
-  's2.table.pre': '50% paraimazh(preimage) pas',
+  's2.table.coll': '50% përplasje (collision) pas',
+  's2.table.pre': '50% paraimazh (preimage) pas',
   's2.row.days': 'Ditëlindjet (365 ditë)',
   's2.row.b32': 'Vlerë 32-bitëshe',
   's2.row.b64': 'Vlerë 64-bitëshe',
@@ -91,11 +91,11 @@ export const sq: Messages = {
     '**Paraimazh i dytë (second preimage):** për *një* mesazh të dhënë, gjeni një mesazh tjetër me të njëjtin hash. Vetia që e mbron: *rezistenca e dobët ndaj përplasjeve* (weak collision resistance). Puna e pritur ≈ 2^{k}.',
   's3.bits': 'Madhësia e hash-it k',
   's3.run.collision': 'Nis sulmin e ditëlindjes',
-  's3.run.preimage': 'Nis sulmin e paraimazhit(preimage attack)',
+  's3.run.preimage': 'Nis sulmin e paraimazhit (preimage attack)',
   's3.run.race': 'Garë mes të dyjave',
   's3.stop': 'Ndalo',
   's3.panel.collision': 'Sulmi i ditëlindjes (collision attack)',
-  's3.panel.preimage': 'Sulmi i paraimazhit(preimage attack)',
+  's3.panel.preimage': 'Sulmi i paraimazhit (preimage attack)',
   's3.attempts': 'Hash-e të llogaritur',
   's3.expected': 'E pritur (mesatarisht)',
   's3.rate': 'Shpejtësia',
@@ -113,7 +113,7 @@ export const sq: Messages = {
     'E theksuar: {k} bitet e para, e vetmja pjesë që shikon hash-i ynë i thjeshtuar. Vlerat e plota SHA-256 mbeten të ndryshme.',
   's3.exp.title': 'Si rritet puna?',
   's3.exp.desc':
-    'Ekzekutojmë secilin sulm {trials} herë për shumë vlera të k dhe vizatojmë punën mesatare në shkallë logaritmike. Lakorja e përplasjes(collision curve) ngjitet 1 shkallë për çdo 2 bite; lakorja e paraimazhit(preimage curve) ngjitet 1 shkallë për çdo bit. Faktori 1/2 në eksponent është e gjithë historia.',
+    'Ekzekutojmë secilin sulm {trials} herë për shumë vlera të k dhe vizatojmë punën mesatare në shkallë logaritmike. Lakorja e përplasjes (collision curve) ngjitet 1 shkallë për çdo 2 bite; lakorja e paraimazhit (preimage curve) ngjitet 1 shkallë për çdo bit. Faktori 1/2 në eksponent është e gjithë historia.',
   's3.exp.run': 'Nis eksperimentin',
   's3.exp.running': 'Duke matur k = {bits}…',
   's3.exp.collision': 'Collision, e matur',
@@ -128,7 +128,7 @@ export const sq: Messages = {
   /* ---------------------------------- 4 ---------------------------------- */
   's4.title': 'Pse ka rëndësi në praktikë',
   's4.rule':
-    '**Rregull praktik:** një hash n-bitësh ofron të shumtën n/2 bite rezistencë ndaj përplasjeve. Për 128 bite siguri kundër përplasjeve(collisions) ju duhet një hash me të paktën 256 bite.',
+    '**Rregull praktik:** një hash n-bitësh ofron të shumtën n/2 bite rezistencë ndaj përplasjeve. Për 128 bite siguri kundër përplasjeve (collisions) ju duhet një hash me të paktën 256 bite.',
   's4.speed': 'Shpejtësia e sulmuesit',
   's4.speed.cpu': 'Një bërthamë CPU',
   's4.speed.gpu': 'Një GPU',
@@ -143,16 +143,16 @@ export const sq: Messages = {
   's4.broken': 'I thyer',
   's4.secure': 'I sigurt',
   's4.known.md5':
-    'Përplasja(Collision) e parë u publikua më 2004 (Wang et al.); sot gjendet brenda sekondash në një laptop. Një përplasje(collision) me parashtesë të zgjedhur u përdor për të falsifikuar një certifikatë nënshkrimi kodi të Microsoft-it për malware-in Flame (2012).',
+    'Përplasja (collision) e parë u publikua më 2004 (Wang et al.); sot gjendet brenda sekondash në një laptop. Një përplasje (collision) me parashtesë të zgjedhur u përdor për të falsifikuar një certifikatë nënshkrimi kodi të Microsoft-it për malware-in Flame (2012).',
   's4.known.sha1':
-    'SHAttered (2017): përplasja(collision) e parë publike, rreth 2^{63} llogaritje SHA-1. Përplasje(collision) me parashtesë të zgjedhur “SHA-1 is a Shambles” (2020).',
+    'SHAttered (2017): përplasja (collision) e parë publike, rreth 2^{63} llogaritje SHA-1. Përplasje (collision) me parashtesë të zgjedhur “SHA-1 is a Shambles” (2020).',
   's4.known.none': 'Asgjë më e mirë se sulmi gjenerik i ditëlindjes.',
   's4.timeNote':
     'Koha për të arritur 50% gjasa me një sulm gjenerik të ditëlindjes. Për krahasim, universi është rreth 1,4 × 10^{10} vjeç.',
   's4.cards.title': 'Ku tjetër shfaqet kufiri i ditëlindjes',
   's4.card.sig.title': 'Nënshkrimet digjitale',
   's4.card.sig':
-    'Nënshkrimi digjital përdor vlerën hash të dokumentit për të krijuar nënshkrimin. Një përplasje(collision) i lejon sulmuesit të zëvendësojë një dokument me një tjetër pa e prishur nënshkrimin. Shihni hapin 6.',
+    'Nënshkrimi digjital përdor vlerën hash të dokumentit për të krijuar nënshkrimin. Një përplasje (collision) i lejon sulmuesit të zëvendësojë një dokument me një tjetër pa e prishur nënshkrimin. Shihni hapin 6.',
   's4.card.sweet32.title': 'Sweet32 (2016)',
   's4.card.sweet32':
     'Shifrat me blloqe 64-bitëshe si 3DES dhe Blowfish fillojnë të prodhojnë blloqe të përsëritura pas rreth 2^{32} blloqeve (≈ 32 GB) me të njëjtin çelës. Studiuesit e shfrytëzuan këtë për të nxjerrë cookie sekrete nga trafiku HTTPS.',
@@ -201,7 +201,7 @@ export const sq: Messages = {
   'live.newRoom': 'Dhomë e re',
   'live.status.connecting': 'Duke u lidhur…',
   'live.status.live': 'Live',
-  'live.status.error': 'Lidhja u ndërpre',
+  'live.status.error': 'Lidhja u ndërpre, po rilidhet…',
   'live.scan': 'Skanoni dhe dërgoni ditëlindjen tuaj',
   'live.students': 'studentë deri tani',
   'live.theory': 'Teoria, e rillogaritur me çdo ditëlindje të re',
@@ -216,6 +216,11 @@ export const sq: Messages = {
   'live.match': 'Përputhje! Studentët {people} kanë lindur të gjithë më **{date}**.',
   'live.manual': 'Shto me dorë:',
   'live.add': 'Shto',
+  'live.close': 'Mbyll votimin',
+  'live.reopen': 'Rihap votimin',
+  'live.closed': 'Votimi është mbyllur: rezultati është i ngrirë.',
+  'live.late': '{n} përgjigje të mëvonshme nuk numërohen.',
+  'live.localNote': 'Ky projektor po punon lokalisht, prandaj kodi QR hap faqen e publikuar. Votat vijnë në këtë ekran gjithsesi.',
 
   'vote.title': 'Kur e keni ditëlindjen?',
   'vote.privacy': 'Dërgohet vetëm dita dhe muaji, pa emër. Askush nuk e sheh kush çka ka dërguar.',
@@ -224,6 +229,7 @@ export const sq: Messages = {
   'vote.feb29': 'Keni lindur më 29 shkurt? Zgjidhni 28 shkurt (modeli përdor një vit me 365 ditë).',
   'vote.send': 'Dërgo',
   'vote.sending': 'Duke dërguar…',
+  'vote.retrying': 'Shumë telefona po dërgojnë njëkohësisht. Po provojmë përsëri…',
   'vote.sent': 'U dërgua: **{date}**.',
   'vote.look': 'Tani shikoni projektorin.',
   'vote.change': 'Ndrysho përgjigjen',
@@ -234,13 +240,7 @@ export const sq: Messages = {
   'nav.hash': 'Funksioni hash',
   'nav.summary': 'Përmbledhje',
   'nav.live': 'Live',
-  'ui.book': 'Libri {s}',
   'app.live': 'Demonstrim live në klasë',
-  'app.covers': 'Mbulon kapitullin 5 të librit:',
-  'book.5.1': 'Hyrje',
-  'book.5.2': 'Funksioni hash kriptografik',
-  'book.5.3': 'Problemi i ditëlindjes',
-  'book.5.4': 'Sulmi i ditëlindjes',
 
   /* ---------------------------------- 5.1 --------------------------------- */
   'why.title': 'Pse na duhen funksionet hash?',
@@ -268,7 +268,7 @@ export const sq: Messages = {
   'hash.defaultB': 'Alice i paguan Bob-it 900 €',
   'hash.changed':
     'bite ndryshojnë ({pct}). Një ndryshim i vogël në hyrje i ndryshon rreth gjysmën e biteve të daljes. Ky është **efekti i ortekut**: hyrje të ngjashme japin hash-e krejt të ndryshme.',
-  'hash.props.title': 'Pesë vetitë (libri 5.2)',
+  'hash.props.title': 'Pesë vetitë',
   'hash.p.compress.name': '**Kompresimi**',
   'hash.p.compress.desc': 'Çdo gjatësi e hyrjes jep një dalje me n bite (këtu n = 256).',
   'hash.p.efficient.name': '**Efikasiteti**',
@@ -318,14 +318,10 @@ export const sq: Messages = {
   'quiz.retry': 'Provo përsëri',
 
   /* --------------------------------- website -------------------------------- */
-  'hero.eyebrow': 'Siguria e Informacionit · Kapitulli 5',
+  'hero.eyebrow': 'Siguria e Informacionit',
   'hero.people': 'njerëz në dhomë',
   'hero.caption': 'Ditëlindje të rastit, njëra pas tjetrës…',
   'hero.match': '**Përputhje!** Dy njerëz kanë të njëjtën ditëlindje pas vetëm **{n}** njerëzve.',
-  'stats.people': 'njerëz japin **50%** gjasa për një ditëlindje të përbashkët',
-  'stats.pairs': 'çifte fshihen në një dhomë me 23 njerëz',
-  'stats.sha256': 'punë për një përplasje SHA-256, jo 2^{256}',
-  'stats.md5': 'punë gjenerike për MD5, prandaj ra',
   'footer.tagline': 'Një udhëzues interaktiv për paradoksin e ditëlindjes dhe pse ai përcakton gjatësinë e çdo hash-i kriptografik.',
   'footer.steps': 'Hapat',
 

@@ -3,7 +3,7 @@ import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { HeroVisual } from './components/HeroVisual';
 import { StepRail } from './components/StepRail';
-import { T, renderMarkup } from './components/Text';
+import { T } from './components/Text';
 import { useReveal } from './hooks/useReveal';
 import { useI18n } from './i18n';
 import { S1Paradox } from './sections/S1Paradox';
@@ -14,26 +14,9 @@ import { S5Yuval } from './sections/S5Yuval';
 import { S0Hash } from './sections/S0Hash';
 import { S0Why } from './sections/S0Why';
 import { S8Summary } from './sections/S8Summary';
-import { STEPS } from './steps';
-import type { MessageKey } from './i18n';
 import { LivePage } from './live/LivePage';
 import { VotePage } from './live/VotePage';
 import { isValidRoom, newRoomCode } from './lib/live';
-
-const BOOK_SECTIONS: Array<[string, MessageKey]> = [
-  ['5.1', 'book.5.1'],
-  ['5.2', 'book.5.2'],
-  ['5.3', 'book.5.3'],
-  ['5.4', 'book.5.4'],
-];
-
-/** The headline numbers under the hero. */
-const STATS: Array<[string, MessageKey]> = [
-  ['23', 'stats.people'],
-  ['253', 'stats.pairs'],
-  ['2^{128}', 'stats.sha256'],
-  ['2^{64}', 'stats.md5'],
-];
 
 type Route = { page: 'app' } | { page: 'live' | 'vote'; room: string };
 
@@ -78,7 +61,6 @@ function Website() {
         <div className="hero">
           <div className="container wide hero-inner">
             <div className="hero-text">
-              <span className="eyebrow">{t('hero.eyebrow')}</span>
               <h1>{t('app.title')}</h1>
               <p className="subtitle">{t('app.subtitle')}</p>
               <p className="lead">
@@ -93,31 +75,11 @@ function Website() {
                   {t('app.live')}
                 </a>
               </div>
-              <div className="book-map">
-                <span className="small muted">{t('app.covers')}</span>
-                {BOOK_SECTIONS.map(([s, key]) => (
-                  <a key={s} href={`#${STEPS.find((x) => x.book === s)!.id}`} className="chip">
-                    <b>{s}</b> {t(key)}
-                  </a>
-                ))}
-              </div>
             </div>
             <HeroVisual />
           </div>
         </div>
-        <div className="stats-band">
-          <div className="container wide stats">
-            {STATS.map(([value, key]) => (
-              <div key={key} className="stat">
-                <b>{renderMarkup(value)}</b>
-                <span>
-                  <T k={key} />
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-        {/* order follows the book; numbering comes from src/steps.ts */}
+        {/* order and numbering come from src/steps.ts */}
         <S0Why />
         <S0Hash />
         <S1Paradox />

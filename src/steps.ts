@@ -1,19 +1,17 @@
 import type { MessageKey } from './i18n';
 
 /**
- * The order of the steps on the page, and the book section each one covers
- * (Stamp, Information Security, ch. 5). Step numbers, the header nav and the
- * "Book §5.x" labels all come from this list.
+ * The order of the steps on the page. Step numbers and the header nav come from this list.
  */
-export const STEPS: Array<{ id: string; nav: MessageKey; book: string | null }> = [
-  { id: 'why', nav: 'nav.why', book: '5.1' },
-  { id: 'hash', nav: 'nav.hash', book: '5.2' },
-  { id: 'paradox', nav: 'nav.s1', book: '5.3' },
-  { id: 'any-n', nav: 'nav.s2', book: '5.3' },
-  { id: 'hash-lab', nav: 'nav.s3', book: '5.4' },
-  { id: 'yuval', nav: 'nav.s5', book: '5.4' },
-  { id: 'practice', nav: 'nav.s4', book: null },
-  { id: 'summary', nav: 'nav.summary', book: null },
+export const STEPS: Array<{ id: string; nav: MessageKey }> = [
+  { id: 'why', nav: 'nav.why' },
+  { id: 'hash', nav: 'nav.hash' },
+  { id: 'paradox', nav: 'nav.s1' },
+  { id: 'any-n', nav: 'nav.s2' },
+  { id: 'hash-lab', nav: 'nav.s3' },
+  { id: 'yuval', nav: 'nav.s5' },
+  { id: 'practice', nav: 'nav.s4' },
+  { id: 'summary', nav: 'nav.summary' },
 ];
 
 export function stepOf(id: string) {

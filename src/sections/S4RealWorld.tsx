@@ -78,14 +78,18 @@ export function S4RealWorld() {
                       </span>
                     )}
                   </td>
-                  <td className="num">{t('s4.bits', { bits: h.bits })}</td>
-                  <td className="num">
-                    2<sup>{h.bits / 2}</sup>
+                  <td className="num" data-label={t('s4.th.out')}>
+                    <span>{t('s4.bits', { bits: h.bits })}</span>
                   </td>
-                  <td className="num">
+                  <td className="num" data-label={t('s4.th.res')}>
+                    <span>
+                      2<sup>{h.bits / 2}</sup>
+                    </span>
+                  </td>
+                  <td className="num" data-label={t('s4.th.time')}>
                     <Duration log10Seconds={log2SamplesForCollision(h.bits) * LOG10_2 - speed.log10} />
                   </td>
-                  <td className="small">
+                  <td className="small known" data-label={t('s4.th.known')}>
                     <T k={h.known} />
                   </td>
                 </tr>

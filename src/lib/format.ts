@@ -47,8 +47,8 @@ export function fmtPct(p: number, lang: Lang, digits = 1): string {
   return f(p);
 }
 
-const SQ_MONTHS = ['janar', 'shkurt', 'mars', 'prill', 'maj', 'qershor', 'korrik', 'gusht', 'shtator', 'tetor', 'nëntor', 'dhjetor'];
-const SQ_MONTHS_SHORT = ['jan', 'shk', 'mar', 'pri', 'maj', 'qer', 'korr', 'gush', 'sht', 'tet', 'nën', 'dhj'];
+const SQ_MONTHS = ['Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor', 'Nëntor', 'Dhjetor'];
+const SQ_MONTHS_SHORT = ['Jan', 'Shk', 'Mar', 'Pri', 'Maj', 'Qer', 'Korr', 'Gush', 'Sht', 'Tet', 'Nën', 'Dhj'];
 
 export function monthName(month: number, lang: Lang, style: 'short' | 'long' = 'long'): string {
   if (lang === 'sq') return (style === 'short' ? SQ_MONTHS_SHORT : SQ_MONTHS)[month];
